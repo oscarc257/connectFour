@@ -9,7 +9,7 @@ class Game {
         this.players = [p1, p2];
         this.height = height;
         this.width = width;
-        this.currPlayer =p1;
+        this.currPlayer = p1;
         this.makeBoard();
         this.makeHtmlBoard();
         this.gameOver = false;
@@ -36,6 +36,7 @@ makeBoard() {
 
 makeHtmlBoard() {
   const board = document.getElementById('board');
+  board.innerHTML = '';
 
   // make column tops (clickable area for adding a piece to that column)
   const top = document.createElement('tr');
@@ -44,7 +45,7 @@ makeHtmlBoard() {
 
   this.handleGameClick = this.handleClick.bind(this);
 
-  top.addEventListener('click', this.handleGameClick);
+  top.addEventListener("click", this.handleGameClick);
 
   for (let x = 0; x < this.width; x++) {
     const headCell = document.createElement('td');
@@ -113,11 +114,12 @@ handleClick(evt) {
 
   // place piece in board and add to HTML table
   this.board[y][x] = this.currPlayer;
-  placeInTable(y, x);
+  this.placeInTable(y, x);
   
   // check for win
   if (this.checkForWin()) {
-    return this.endGame(` The ${this.currPlayer.color} player won!`);
+    this.gameOver = true;
+    return this.endGame(`The ${this.currPlayer.color} player won!`);
   }
   
   // check for tie
@@ -126,7 +128,7 @@ handleClick(evt) {
   }
     
   // switch players
-  this.currPlayer = this.currPlayer ===this.players [0] ? this.players [1] : this.players[0];
+  this.currPlayer = this.currPlayer === this.players [0] ? this.players [1] : this.players[0];
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -176,5 +178,5 @@ class Player {
 document.getElementById('lets-game').addEventListener('click', () => {
     let p1 = new Player(document.getElementById('p1-color').value);
     let p2 = new Player(document.getElementById('p2-color').value);
-    new Game(p1,p2);
+    new Game(p1, p2);
 });
