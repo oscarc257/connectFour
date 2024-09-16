@@ -5,7 +5,7 @@
  * board fills (tie)
  */
 class Game {
-    constructor(p1, p2, height =6, width = 7) {
+    constructor(p1, p2, height = 6, width = 7) {
         this.players = [p1, p2];
         this.height = height;
         this.width = width;
@@ -150,7 +150,7 @@ checkForWin() {
        this.board[y][x] === this.currPlayer
     );
   
-
+// The outer loop iterates over each row (y) of the grid, and the inner loop iterates over each column (x).
   for (let y = 0; y < this.height; y++) {
         for (let x = 0; x < this.width; x++) {
          // get "check list" of 4 cells (starting here) for each of the different
@@ -169,14 +169,20 @@ checkForWin() {
   }
 }
 
+
+// The Player class initializes players with a color. The class takes a color as input and stores it in an instance variable this.color.
 class Player {
     constructor(color) {
         this.color = color;
     }
 }
 
+
+// On clicking the lets-game button, the event listener creates two players with colors selected from input fields.
 document.getElementById('lets-game').addEventListener('click', () => {
     let p1 = new Player(document.getElementById('p1-color').value);
     let p2 = new Player(document.getElementById('p2-color').value);
+    // A new game is started by creating an instance of the Game class using these players. 
+    // The implementation of the Game class is not shown, but it would likely contain the logic for running the game.
     new Game(p1, p2);
 });
